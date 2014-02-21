@@ -3,7 +3,7 @@ package {
 	 * @author csablons
 	 */
 	public class Settings {
-		public static const VERSION	:String = "2.3.2";
+		public static const VERSION	:String = "2.4.0";
 		
 		public static const DUREE_BLOCAGE	:uint = 200;	// Durée en millisecondes durant laquelle on bloque le clic
 		//public static const SEUIL_MOUVEMENT	:uint = 100;	// Durée en millisecondes durant à partir de laquelle on considère qu'il y a eu mouvement

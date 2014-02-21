@@ -69,6 +69,7 @@ package layer {
 		 * Pour initialiser les écouteurs.
 		 */
 		public function startListening():void {
+			_trc("### ### ### startListening()");
 			addEventListener(MouseEvent.CLICK, _onMapTap);
 			addEventListener(MouseEvent.DOUBLE_CLICK, _onMapDoubleTap);
 			addEventListener(MouseEvent.MOUSE_DOWN, _onMouseDown);
@@ -79,6 +80,7 @@ package layer {
 		 * Pour initialiser les écouteurs.
 		 */
 		public function stopListening():void {
+			_trc("### ### ### stopListening()");
 			removeEventListener(MouseEvent.CLICK, _onMapTap);
 			removeEventListener(MouseEvent.DOUBLE_CLICK, _onMapDoubleTap);
 			removeEventListener(MouseEvent.MOUSE_DOWN, _onMouseDown);
@@ -92,7 +94,7 @@ package layer {
 		/**
 		 * Lorsqu'on commence à déplacer un point de la carte on arrête d'écouter les mouvements de la carte.
 		 */
-		protected function _onSpotGrabbed(event:MouseEvent):void {
+		protected function _onSpotGrabbed(event:MapTravelEvent):void {
 			_trc("### ### ### _onSpotGrabbed(event)");
 			stopListening();
 		}
@@ -100,7 +102,7 @@ package layer {
 		/**
 		 * Lorsqu'on commence à déplacer un point de la carte on arrête d'écouter les mouvements de la carte.
 		 */
-		protected function _onSpotReleased(event:MouseEvent):void {
+		protected function _onSpotReleased(event:MapTravelEvent):void {
 			_trc("### ### ### _onSpotReleased(event)");
 			startListening();
 			_lock();
@@ -110,7 +112,7 @@ package layer {
 		 * On place un point sur la carte.
 		 */
 		protected function _onMapTap(event:MouseEvent):void {
-//			_trc("### ### ### _onMapTap(event)");
+			_trc("### ### ### _onMapTap(event)");
 			
 			dispatchEvent(new MapTravelEvent(MapTravelEvent.ON_MAP_TAP));
 		}
@@ -119,7 +121,7 @@ package layer {
 		 * On efface le tracé.
 		 */
 		protected function _onMapDoubleTap(event:MouseEvent):void {
-//			_trc("### ### ### _onMapDoubleTap(event)");
+			_trc("### ### ### _onMapDoubleTap(event)");
 			
 			dispatchEvent(new MapTravelEvent(MapTravelEvent.ON_MAP_DOUBLE_TAP));
 			_lock();
@@ -189,7 +191,7 @@ package layer {
 		 * Pour faire glisser la carte.
 		 */
 		private function _onZoom(event:TransformGestureEvent):void {
-//			_trc("### ### ### _onZoom(event)");
+			_trc("### ### ### _onZoom(event)");
 			if (event.phase == GesturePhase.BEGIN) {
 				removeEventListener(MouseEvent.MOUSE_DOWN, _onMouseDown);
 				removeEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
@@ -266,6 +268,8 @@ package layer {
 		 * Utile car souvent après un double-clic, un spot apparait.
 		 */
 		private function _lock():void {
+			_trc("### ### ### _lock()");
+			clearTimeout(_idTimeout);
 			_idTimeout = setTimeout(_unlock, Settings.DUREE_BLOCAGE);
 			removeEventListener(MouseEvent.CLICK, _onMapTap);
 		}
@@ -274,6 +278,7 @@ package layer {
 		 * Débloque la carte.
 		 */
 		private function _unlock():void {
+			_trc("### ### ### _unlock()");
 			clearTimeout(_idTimeout);
 			addEventListener(MouseEvent.CLICK, _onMapTap);
 		}
