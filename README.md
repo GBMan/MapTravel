@@ -2,6 +2,7 @@ MapTravel
 =========
 
 v2.3 - 21/02/2014
+
 This is an Air application for mobile.
 
 It's a tool for estimate the time to travel on a map for role playing game.
