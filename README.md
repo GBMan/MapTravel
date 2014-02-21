@@ -7,7 +7,7 @@ This is an Air application for mobile.
 
 It's a tool for estimate the time to travel on a map for role playing game.
 
-It's stile in alpha.
+It's still in alpha.
 
 For now I try to make a complete version for Deadlands.
 
