@@ -8,10 +8,13 @@ package way{
 	 * @author csablons
 	 */
 	public class SpotsList {
-		private var _spots		:Vector.<Spot>;
-		private var _holder		:Sprite;
-		private var _relief		:Sprite;
-		private var _bmpData	:BitmapData;
+		private var _spots			:Vector.<Spot>;
+		private var _holder			:Sprite;
+		private var _segmentsHolder	:Sprite;
+		private var _spotsHolder	:Sprite;
+		private var _relief			:Sprite;
+		private var _topSpotAsset	:SpotAsset;
+		private var _bmpData		:BitmapData;
 		
 		/**
 		 * Constructeur
@@ -20,6 +23,13 @@ package way{
 		public function SpotsList(holder:Sprite, relief:Sprite) {
 			_holder = holder;
 			_relief = relief;
+			
+			_segmentsHolder = new Sprite();
+			_holder.addChild(_segmentsHolder);
+			
+			_spotsHolder = new Sprite();
+			_spotsHolder.addEventListener(MapTravelEvent.SPOT_GRABBED, _onSpotGrabbed);
+			_holder.addChild(_spotsHolder);
 			
 			_bmpData = new BitmapData(_relief.width, _relief.height);
 			_bmpData.draw(_relief);
@@ -40,8 +50,11 @@ package way{
 		 * Ajoute un point aux coordonnées indiquées
 		 */
 		public function clean():void {
-			while (_holder.numChildren > 1) {
-				_holder.removeChildAt(1);
+			while (_segmentsHolder.numChildren > 0) {
+				_segmentsHolder.removeChildAt(0);
+			}
+			while (_spotsHolder.numChildren > 0) {
+				_spotsHolder.removeChildAt(0);
 			}
 			if (_spots) {
 				// TODO Boucle où on enlève les écouteurs.
@@ -59,7 +72,10 @@ package way{
 			spot.y = _holder.mouseY;
 //			spot.label = "Bisou_"+_spots.length;
 			_spots.push(spot);
-			_holder.addChild(spot.asset);
+			_spotsHolder.addChild(spot.asset);
+			
+			_topSpotAsset = spot.asset as SpotAsset;
+			
 			_drawLine();
 		}
 		
@@ -71,7 +87,7 @@ package way{
 			
 			if (l > 1) {
 				var segment	:Segment = new Segment(_spots[l-2], _spots[l-1]);
-				_holder.addChild(segment);
+				_segmentsHolder.addChild(segment);
 				_spots[l-2].segment2 = segment;
 				_spots[l-1].segment1 = segment;
 			}
@@ -160,6 +176,16 @@ package way{
 			}
 			
 			return nDiff;
+		}
+		
+		/**
+		 * Lorsqu'on commence à déplacer un point de la carte on arrête d'écouter les mouvements de la carte.
+		 */
+		protected function _onSpotGrabbed(event:MapTravelEvent):void {
+			_trc("_onSpotGrabbed()");
+			_spotsHolder.swapChildren(_topSpotAsset, event.target as SpotAsset);
+			
+			_topSpotAsset = event.target as SpotAsset;
 		}
 	}
 }

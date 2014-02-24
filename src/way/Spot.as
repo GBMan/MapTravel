@@ -1,8 +1,9 @@
 package way {
-	import flash.utils.clearTimeout;
 	import gbman.display.AAssetDisplayer;
 
+	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
 	/**
 	 * @author csablons
@@ -12,18 +13,29 @@ package way {
 		// Données
 		private var _prevLocalX		:Number;
 		private var _prevLocalY		:Number;
+		private var _zone			:Sprite;
 		private var _moved			:Boolean = false;	// true si on a bougé récemment
 		private var _baby			:Boolean = true;	// true si le spot vient d'être créé
 		private var _idTimeout		:uint;	// true si le spot vient d'être créé
-		public var label	:String;
-		public var segment1	:Segment;
-		public var segment2	:Segment;
+		
+		public var label		:String;
+		public var segment1		:Segment;
+		public var segment2		:Segment;
 		
 		/**
 		 * Constructeur
 		 */
 		public function Spot() {
+			
 			_asset = new SpotAsset();
+			_asset.mouseChildren = false;
+			
+			_zone = new Sprite();
+			_zone.graphics.beginFill(0x00ff00, 0.0);
+			_zone.graphics.drawCircle(0, 0, 100);
+			_zone.graphics.endFill();
+			_zone.visible = false;
+			_asset.addChild(_zone);
 			
 			_asset.addEventListener(MouseEvent.MOUSE_DOWN, _onMouseDown);
 			
@@ -54,6 +66,8 @@ package way {
 			
 			if (!_baby) {
 				event.stopPropagation();
+				
+				_zone.visible = true;
 				
 				_asset.addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
 				_asset.removeEventListener(MouseEvent.MOUSE_DOWN, _onMouseDown);
@@ -117,6 +131,7 @@ package way {
 				
 				_moved = false;
 			}
+			_zone.visible = false;
 
 			_asset.dispatchEvent(new MapTravelEvent(MapTravelEvent.SPOT_RELEASED, true));
 			_asset.removeEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
