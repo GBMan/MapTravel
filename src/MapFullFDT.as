@@ -1,4 +1,5 @@
 package {
+	import mx.core.ButtonAsset;
 	import indication.Indication;
 
 	import layer.LayerContainer;
@@ -47,6 +48,7 @@ package {
 			addChild(_layerContainer);
 			_layerContainer.addEventListener(MapTravelEvent.ON_MAP_TAP, _onMapTap);
 			_layerContainer.addEventListener(MapTravelEvent.ON_MAP_DOUBLE_TAP, _onMapDoubleTap);
+			_layerContainer.addEventListener(MapTravelEvent.SEGMENT_SELECTED, _onSegmentSelected);
 			
 			_spotsList = new SpotsList(_layerContainer, _layerContainer.relief);
 			
@@ -71,6 +73,21 @@ package {
 			NativeApplication.nativeApplication.menu = m;
 			_trc("NativeApplication.nativeApplication.openedWindows = "+NativeApplication.nativeApplication.openedWindows);
 			_trc("NativeApplication.nativeApplication.publisherID = "+NativeApplication.nativeApplication.publisherID);
+		}
+		
+		/**
+		 * 
+		 */
+		private function _onSegmentSelected(event:MapTravelEvent):void {
+			_trc("_onSegmentSelected(event)");
+			
+			var spr	:Sprite;
+			
+			spr = new Sprite();
+			spr.graphics.beginFill(0xcccccc);
+			spr.graphics.drawRect(event.x*_layerContainer.scaleX + _layerContainer.x, event.y*_layerContainer.scaleX + _layerContainer.y, 300, 300);
+			spr.graphics.endFill();
+			//addChild(spr);
 		}
 		
 		public function checkKeypress(event:KeyboardEvent):void {

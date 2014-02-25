@@ -41,7 +41,7 @@ package way {
 			graphics.lineStyle(4, 0xFF0000, 1, true);
 			graphics.moveTo(spot1.x, spot1.y);
 			graphics.lineTo(spot2.x, spot2.y);
-			graphics.lineStyle(20, 0x00ff00, 0.3, true);
+			graphics.lineStyle(20, 0x00ff00, 0, true);
 			graphics.moveTo(spot1.x, spot1.y);
 			graphics.lineTo(spot2.x, spot2.y);
 		}
@@ -50,8 +50,13 @@ package way {
 		 * Pour ouvrir le menu permettant de choisir le trajet.
 		 */
 		private function _onClick(event:MouseEvent):void {
-			_trc("ON VA OUVRIR LE CHOIX DE TRAJET");
+			_trc("ON VA OUVRIR LE CHOIX DE TRAJET {"+event.localX+" ; "+event.localY+"}");
 			event.stopPropagation();
+			
+			var mapEvent	:MapTravelEvent = new MapTravelEvent(MapTravelEvent.SEGMENT_SELECTED, true);
+			mapEvent.x = event.localX;
+			mapEvent.y = event.localY;
+			dispatchEvent(mapEvent);
 		}
 	}
 }

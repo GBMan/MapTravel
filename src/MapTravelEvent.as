@@ -10,9 +10,10 @@ package {
 		public static const ON_MAP_DOUBLE_TAP	:String = "onMapDoubleTap";
 		public static const SPOT_GRABBED		:String = "onSpotGrabbed";
 		public static const SPOT_RELEASED		:String = "onSpotReleased";
+		public static const SEGMENT_SELECTED	:String = "onSegmentSelected";
 		
-//		public var var1	:uint;
-//		public var var2	:uint;
+		public var x	:Number;
+		public var y	:Number;
 		
 		public function MapTravelEvent(type : String, bubbles : Boolean = false, cancelable : Boolean = false) {
 			super(type, bubbles, cancelable);
@@ -20,8 +21,8 @@ package {
 		
 		override public function clone() : Event {
 			var e : MapTravelEvent = new MapTravelEvent(type, bubbles, cancelable);
-//			e.var1 = var1;
-//			e.var2 = var2;
+			e.x = x;
+			e.y = y;
 			return e;
 		}
 	}
