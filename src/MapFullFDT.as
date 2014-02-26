@@ -61,18 +61,18 @@ package {
 			addChild(blocResult.asset);
 			
 			addEventListener(Event.ADDED_TO_STAGE, _onAddedToStage);
-			NativeApplication.nativeApplication.addEventListener(KeyboardEvent.KEY_DOWN, checkKeypress);
-			_trc("NativeApplication.supportsMenu = "+NativeApplication.supportsMenu);
-			_trc("NativeApplication.nativeApplication.menu = "+NativeApplication.nativeApplication.menu);
-			var m	:NativeMenu = new NativeMenu();
-			m.addItem(new NativeMenuItem("Jambon"));
-			m.addItem(new NativeMenuItem("Beurre", true));
-			m.addItem(new NativeMenuItem("Coca"));
-			m.addItem(new NativeMenuItem("Lait"));
-			m.addItem(new NativeMenuItem("Eau"));
-			NativeApplication.nativeApplication.menu = m;
-			_trc("NativeApplication.nativeApplication.openedWindows = "+NativeApplication.nativeApplication.openedWindows);
-			_trc("NativeApplication.nativeApplication.publisherID = "+NativeApplication.nativeApplication.publisherID);
+//			NativeApplication.nativeApplication.addEventListener(KeyboardEvent.KEY_DOWN, checkKeypress);
+//			_trc("NativeApplication.supportsMenu = "+NativeApplication.supportsMenu);
+//			_trc("NativeApplication.nativeApplication.menu = "+NativeApplication.nativeApplication.menu);
+//			var m	:NativeMenu = new NativeMenu();
+//			m.addItem(new NativeMenuItem("Jambon"));
+//			m.addItem(new NativeMenuItem("Beurre", true));
+//			m.addItem(new NativeMenuItem("Coca"));
+//			m.addItem(new NativeMenuItem("Lait"));
+//			m.addItem(new NativeMenuItem("Eau"));
+//			NativeApplication.nativeApplication.menu = m;
+//			_trc("NativeApplication.nativeApplication.openedWindows = "+NativeApplication.nativeApplication.openedWindows);
+//			_trc("NativeApplication.nativeApplication.publisherID = "+NativeApplication.nativeApplication.publisherID);
 		}
 		
 		/**
@@ -87,7 +87,7 @@ package {
 			spr.graphics.beginFill(0xcccccc);
 			spr.graphics.drawRect(event.x*_layerContainer.scaleX + _layerContainer.x, event.y*_layerContainer.scaleX + _layerContainer.y, 300, 300);
 			spr.graphics.endFill();
-			//addChild(spr);
+			addChild(spr);
 		}
 		
 		public function checkKeypress(event:KeyboardEvent):void {
