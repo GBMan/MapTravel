@@ -1,4 +1,5 @@
 package {
+	import interface.pannel.Pannel;
 	import mx.core.ButtonAsset;
 	import indication.Indication;
 
@@ -81,6 +82,9 @@ package {
 		private function _onSegmentSelected(event:MapTravelEvent):void {
 			_trc("_onSegmentSelected(event)");
 			
+			var pan	:Pannel = new Pannel();
+			
+			addChild(pan);
 			var spr	:Sprite;
 			
 			spr = new Sprite();
