@@ -84,7 +84,7 @@ package {
 			var spr	:Sprite;
 			
 			spr = new Sprite();
-			spr.graphics.beginFill(0xcccccc);
+			spr.graphics.beginFill(0xff0000);
 			spr.graphics.drawRect(event.x*_layerContainer.scaleX + _layerContainer.x, event.y*_layerContainer.scaleX + _layerContainer.y, 300, 300);
 			spr.graphics.endFill();
 			addChild(spr);
